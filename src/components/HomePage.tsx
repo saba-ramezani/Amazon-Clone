@@ -6,7 +6,7 @@ import HomePageCard from "./HomePageCard"
 
 const HomePage = () => {
   return (
-    <div className="bg-background">
+    <div className="bg-background mt-[60px]">
       <div className="min-w-[1000px] max-w-[1500px] m-auto ">
         <Carousel />
         <div className="grid grid-cols-3 xl:grid-cols-4 gap-[20px] w-full  p-[10px] -mt-70">
@@ -16,6 +16,9 @@ const HomePage = () => {
         </div>
         <BestSellersCarousel />
         <CategoriesCarousel />
+        <div className="mt-[20px]">
+          <img src="/images/banner_image.jpg" className="object-cover" alt="" />
+        </div>
       </div>
     </div>
   )

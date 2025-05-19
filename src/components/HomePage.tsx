@@ -1,4 +1,5 @@
 import { homePageCards } from "../data/HomePageCards"
+import BestSellersCarousel from "./BestSellersCarousel"
 import Carousel from "./Carousel"
 import HomePageCard from "./HomePageCard"
 
@@ -12,6 +13,7 @@ const HomePage = () => {
             (<HomePageCard title={title} image={image} link={link} />))
           }
         </div>
+        <BestSellersCarousel />
       </div>
     </div>
   )

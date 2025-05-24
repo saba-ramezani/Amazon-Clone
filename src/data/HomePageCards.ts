@@ -1,4 +1,4 @@
-import type { HomePageCardType } from "../types/HomePageCardType";
+import type { HomePageCardType } from "../types/Types";
 
 export const homePageCards: HomePageCardType[] = [
     {

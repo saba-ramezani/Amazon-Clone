@@ -3,3 +3,8 @@ export type HomePageCardType = {
     image: string;
     link: string;
 }
+
+export type SearchCategory = {
+    title: string;
+    value: string;
+}

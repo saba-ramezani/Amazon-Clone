@@ -1,4 +1,4 @@
-import { SearchCategories } from "../data/SearchCategories"
+import { SearchCategories } from "../../data/SearchCategories"
 import { BsSearch } from "react-icons/bs";
 
 

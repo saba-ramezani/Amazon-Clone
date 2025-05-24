@@ -7,7 +7,7 @@ import Search from "./Search";
 
 const Navbar = () => {
   return (
-    <header className='fixed z-[1000] top-0 w-full flex h-[70px] bg-DEFAULT px-[20px] gap-[25px]'>
+    <div className='w-full flex h-[70px] bg-DEFAULT px-[20px] gap-[25px]'>
         <div className='w-fit h-full flex items-center  hover:scale-[105%]'>
             <img className='h-[40px] object-cover' src="/images/amazon.png" alt="" />
         </div>
@@ -41,7 +41,7 @@ const Navbar = () => {
             <FaCartShopping  size={40} color="Orange" />
             <p className="text-white text-[16px] font-semibold mt-[20px]">Cart</p>
         </div>
-    </header>
+    </div>
   )
 }
 

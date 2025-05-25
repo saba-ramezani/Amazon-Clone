@@ -11,7 +11,7 @@ const HomePage = () => {
         <Carousel />
         <div className="grid grid-cols-3 xl:grid-cols-4 gap-[20px] w-full  p-[10px] -mt-70">
           {homePageCards.map(({title, image, link}, i) => 
-            (<HomePageCard title={title} image={image} link={link} />))
+            (<HomePageCard key={i} title={title} image={image} link={link} />))
           }
         </div>
         <BestSellersCarousel />

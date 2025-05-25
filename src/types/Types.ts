@@ -23,3 +23,8 @@ export type Product = {
     oldPrice: number,
     badge: string
 }
+
+export type Suggestion = {
+    id: number;
+    title: string;
+}

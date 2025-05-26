@@ -7,6 +7,7 @@ export type HomePageCardType = {
 export type SearchCategory = {
     title: string;
     value: string;
+    imgUrl: string;
 }
 
 export type Product = {

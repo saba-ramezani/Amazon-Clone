@@ -3,10 +3,28 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 
 import { Navigation, Pagination } from 'swiper/modules';
+import { createSearchParams, useNavigate } from "react-router-dom";
+import { SearchCategories } from "../../data/SearchCategories";
+import type { SearchCategory } from "../../types/Types";
 
 
 
 const CategoriesCarousel = () => {
+
+    const navigate = useNavigate()
+
+    const searchCategory = (category: string) => {
+        navigate({
+        pathname: "search",
+        search:
+            createSearchParams({
+            category: `${category}`,
+            searchTerm: ``
+            }).toString(),
+    })
+    }
+
+    console.log(SearchCategories.slice(1, SearchCategories.length - 1));
 
   return (
     <div className=" bg-white mt-[20px] rounded-[10px] py-[20px] px-[10px]">
@@ -18,10 +36,14 @@ const CategoriesCarousel = () => {
             modules={[Pagination, Navigation]}
         >
             {
-                Array.from({length: 6}, (_, i) => 
-                    <SwiperSlide className="hover:scale-[110%]">
-                        <img src={`/images/category_${i}.jpg`} alt="" />
-                    </SwiperSlide>
+                SearchCategories.slice(1, SearchCategories.length - 1).map((category: SearchCategory, i: number) => 
+                    {
+                        return (
+                            <SwiperSlide className="hover:scale-[105%] cursor-pointer" key={i} onClick={() => searchCategory(category.title)}>
+                                <img src={category.imgUrl} alt="" />
+                            </SwiperSlide>
+                        )
+                    }
                 )
             }
         </Swiper>

@@ -10,6 +10,5 @@ const config = {
 
 export const CallAPI = async (resource: string) => {
     const {data} = await axios.get(`${BASE_URL}/${resource}`, config)
-    console.log(data)
     return data
 }

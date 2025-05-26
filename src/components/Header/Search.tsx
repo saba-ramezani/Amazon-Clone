@@ -3,11 +3,29 @@ import { SearchCategories } from "../../data/SearchCategories"
 import { BsSearch } from "react-icons/bs";
 import type { Suggestion } from "../../types/Types";
 import { CallAPI } from "../../utils/CallAPi";
+import { createSearchParams, useNavigate } from "react-router-dom";
 
 
 const Search = () => {
   const [suggestions, setSuggestions] = useState<Suggestion[] | null>(null)
   const [searchTerm, setSearchTerm] = useState<string>("")
+  const [category, setCategory] = useState<string>("All")
+  const navigate = useNavigate()
+
+  const onHandleSearch = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+
+    navigate({
+      pathname: "search",
+      search:
+        createSearchParams({
+          category: `${category}`,
+          searchTerm: `${searchTerm}`
+        }).toString(),
+    })
+    setSearchTerm('');
+    setCategory("All")
+  }
 
   useEffect(() => {
     const getSuggestions = async () => {
@@ -25,13 +43,12 @@ const Search = () => {
 
   const handleSearchTermChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value)
-    console.log(e.target.value)
   }
 
   return (
     <div className="w-full bg-white h-[40px] px-0 rounded-[10px]">
       <div className="flex items-center h-full w-full rounded-[10px]">
-        <select name="" id="" className="bg-gray-300 rounded-l-[10px] w-fit h-full px-[5px] focus:outline-0">
+        <select name="" id="" className="bg-gray-300 rounded-l-[10px] w-fit h-full px-[5px] focus:outline-0" onChange={(e) => setCategory(e.target.value)}>
           {SearchCategories.map((category, i) => 
             <option value={category.value} key={i}>
               {category.title}
@@ -40,7 +57,9 @@ const Search = () => {
         </select>
         <input className="flex ml-[10px] grow bg-white text-black h-full focus:outline-0" type="text" 
         placeholder="Search Amazon" value={searchTerm} onChange={handleSearchTermChange} />
-        <button className="bg-amber-500 rounded-r-[10px] h-full w-[50px] flex justify-center items-center">
+        <button 
+        onClick={onHandleSearch}
+        className="bg-amber-500 rounded-r-[10px] h-full w-[50px] flex justify-center items-center">
           <BsSearch color="black" size={25} />
         </button>
       </div>

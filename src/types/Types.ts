@@ -22,7 +22,13 @@ export type Product = {
     ratings: number,
     price: number,
     oldPrice: number,
-    badge: string
+    badge: string,
+    quantity: number
+}
+
+
+export type CartProduct = Product & {
+    quantity: number
 }
 
 export type Suggestion = {

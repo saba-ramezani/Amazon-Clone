@@ -1,14 +1,18 @@
 import { useEffect, useState } from 'react'
 import {useParams} from 'react-router-dom'
 import { CallAPI } from '../../utils/CallAPi'
-import type { Product } from '../../types/Types'
+import { type CartProduct, type Product } from '../../types/Types'
 import ProductDetails from './ProductDetails'
 import { GB_CURRENCY } from '../../utils/constants'
+import { useDispatch } from 'react-redux'
+import { addToCart } from '../../redux/cartSlice'
 
 const ProductPage = () => {
 
   const {id} = useParams<{id: string}>()
   const [product, setProduct] =  useState<Product | null>(null)
+  const [quantity, setQuantity] = useState<number>(1)
+  const dispatch = useDispatch()
 
   useEffect(() => {
     const getProduct = async () => {
@@ -50,15 +54,26 @@ const ProductPage = () => {
           <div className='text-sm xl:text-base font-semibold text-blue-500 mt-1'>FREE Delivery</div>
           <div className='text-base xl:text-lg font-semibold text-green-700 mt-1'>In Stock</div>
           <div className='text-base xl:text-lg mt-1'>Quantity:
-            <select name="" id="" className='px-1 bg-white border rounded-md ml-3'>
+            <select 
+              onChange={(e) => {
+                setQuantity(Number(e.target.value))
+              }}
+            name="" id="" className='px-1 bg-white border rounded-md ml-3'>
               <option value="1">1</option>
-              <option value="1">2</option>
-              <option value="1">3</option>
-              <option value="1">4</option>
-              <option value="1">5</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
             </select>
           </div>
-          <button className='bg-amber-300  w-full  p-3 text-md font-semibold  xl:text-lg rounded hover:bg-amber-500 mt-10'>Add to Cart</button>
+          <button
+          onClick={() => 
+          {
+            const cartProduct: CartProduct = {...product, quantity}
+            dispatch(addToCart(cartProduct))
+          }
+          } 
+          className='bg-amber-300  w-full  p-3 text-md font-semibold  xl:text-lg rounded hover:bg-amber-500 mt-10'>Add to Cart</button>
         </div>
 
       </div>

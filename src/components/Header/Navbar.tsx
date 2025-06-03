@@ -3,10 +3,15 @@ import { GrLanguage } from "react-icons/gr";
 import { FaCartShopping } from "react-icons/fa6";
 import Search from "./Search";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import type { RootState } from "../../redux/store";
 
 
 
 const Navbar = () => {
+
+const productsNumber = useSelector((state: RootState) => state.cart.productsNumber);
+
   return (
     <div className='w-full flex h-[70px] bg-DEFAULT px-[20px] gap-[25px]'>
         <div className='w-fit h-full flex items-center  hover:scale-[105%]'>
@@ -43,7 +48,12 @@ const Navbar = () => {
         </div>
         <Link to={"/checkout"}>
             <div className="flex h-full items-center justify-center gap-1  hover:scale-[105%]">
-                <FaCartShopping  size={40} color="Orange" />
+                <FaCartShopping  size={50} color="Orange" />
+                <div className="relative">
+                    <div className="absolute text-black top-[-20px] right-[20px] font-bold">
+                        {productsNumber}
+                    </div>
+                </div>
                 <p className="text-white text-[16px] font-semibold mt-[20px]">Cart</p>
             </div>
         </Link>

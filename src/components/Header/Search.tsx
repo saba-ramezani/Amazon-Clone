@@ -59,7 +59,7 @@ const Search = () => {
         placeholder="Search Amazon" value={searchTerm} onChange={handleSearchTermChange} />
         <button 
         onClick={onHandleSearch}
-        className="bg-amber-500 rounded-r-[10px] h-full w-[50px] flex justify-center items-center">
+        className="bg-amber-500 cursor-pointer hover:bg-amber-400 rounded-r-[10px] h-full w-[50px] flex justify-center items-center">
           <BsSearch color="black" size={25} />
         </button>
       </div>

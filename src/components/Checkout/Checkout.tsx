@@ -14,8 +14,13 @@ const Checkout = () => {
   const numberOfItems = useSelector((state: RootState) => state.cart.productsNumber);
   const subtotal = useSelector((state: RootState) => state.cart.products.reduce((subtotal, product: CartProduct) => subtotal + (product.price * product.quantity) , 0));
 
-  console.log(products)
-
+  if (numberOfItems == 0) {
+    return (
+      <div className="w-screen flex justify-center items-center pt-[300px]">
+        <span className="text-4xl text-red-700 font-semibold">Your Shopping Cart is empty!</span>
+      </div>
+    )
+  }
 
   return (
     <div className="bg-background h-screen">
@@ -38,7 +43,7 @@ const Checkout = () => {
                     <div className="mt-10 flex flex-col gap-2">
                       <button 
                       onClick={() => dispatch(removeFromCart(product.id))}
-                      className="bg-red-700 text-white px-2 rounded-lg py-1 text-sm w-[150px] cursor-pointer">Remove from Cart</button>
+                      className="bg-red-700 hover:bg-red-800 text-white px-2 rounded-lg py-1 text-sm w-[150px] cursor-pointer">Remove from Cart</button>
                       <div className="w-[150px] border border-gray-400 rounded-lg  grid grid-cols-3">
                         <button 
                         onClick={() => {
@@ -47,7 +52,7 @@ const Checkout = () => {
                           }
                         }}
                         className={classNames("col-span-1 rounded-l-lg font-bold",
-                          product.quantity <= 1 ? "bg-gray-300" : "bg-amber-500 cursor-pointer"
+                          product.quantity <= 1 ? "bg-gray-300" : "bg-amber-500 hover:bg-amber-400 cursor-pointer"
                         )}
                         >-</button>
                         <span className="col-span-1 flex justify-center">{product.quantity}</span>
@@ -58,7 +63,7 @@ const Checkout = () => {
                           }
                         }}
                         className={classNames("col-span-1 rounded-r-lg", 
-                          product.quantity >= 5 ? "bg-gray-300" : "bg-amber-500 cursor-pointer"
+                          product.quantity >= 5 ? "bg-gray-300" : "bg-amber-500 hover:bg-amber-400 cursor-pointer"
                         )}>+</button>
                       </div>
                     </div>

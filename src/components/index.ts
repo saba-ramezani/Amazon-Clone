@@ -1,5 +1,5 @@
 export {default as HomePage} from "./HomePage/HomePage"
 export {default as Header} from "./Header/Header"
-export {default as Checkout} from "./Checkout"
+export {default as Checkout} from "./Checkout/Checkout"
 export {default as ProductPage} from "./ProductPage/ProductPage"
 export {default as SearchResults} from "./SearchResults"

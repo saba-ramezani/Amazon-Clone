@@ -19,9 +19,10 @@ export const cartSlice = createSlice({
       const addProductExists = state.products.find((product) => product.id === action.payload.id)
       if (addProductExists) {
         addProductExists.quantity += action.payload.quantity
+        state.productsNumber += action.payload.quantity;
       } else {
         state.products.push(action.payload);
-        state.productsNumber += 1;
+        state.productsNumber += action.payload.quantity;
       }
     },
     removeFromCart: (state, action: PayloadAction<number>) => {

@@ -1,17 +1,22 @@
 import { useEffect, useState } from 'react'
-import {useParams} from 'react-router-dom'
+import {Link, useParams} from 'react-router-dom'
 import { CallAPI } from '../../utils/CallAPi'
 import { type CartProduct, type Product } from '../../types/Types'
 import ProductDetails from './ProductDetails'
 import { GB_CURRENCY } from '../../utils/constants'
 import { useDispatch } from 'react-redux'
 import { addToCart } from '../../redux/cartSlice'
+import { MdOutlineDone } from "react-icons/md";
+import { IoIosCloseCircle } from "react-icons/io";
+
+
 
 const ProductPage = () => {
 
   const {id} = useParams<{id: string}>()
   const [product, setProduct] =  useState<Product | null>(null)
   const [quantity, setQuantity] = useState<number>(1)
+  const [modalOpen, setModalOpen] = useState<boolean>(false)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -71,12 +76,39 @@ const ProductPage = () => {
           {
             const cartProduct: CartProduct = {...product, quantity}
             dispatch(addToCart(cartProduct))
+            setModalOpen(true)
+            setTimeout(() => setModalOpen(false), 5000)
           }
           } 
           className='bg-amber-300  w-full  p-3 text-md font-semibold  xl:text-lg rounded hover:bg-amber-500 mt-10'>Add to Cart</button>
         </div>
-
+ 
       </div>
+      {modalOpen &&
+        <div className='absolute top-0 left-0 z-10 h-screen w-screen justify-center items-center flex bg-[rgba(0,0,0,0.5)]'>
+          <div className='bg-white h-fit w-[500px] rounded-xl p-4'>
+            <div className='flex border-b pb-3 gap-2 px-1'>
+              <div className='flex flex-row flex-1 gap-2'>
+                <MdOutlineDone color='green' size={25} />
+                <span className='text-lg text-green-600'>This item is added to your cart!</span>
+              </div>
+              
+              <button className='cursor-pointer' onClick={() => setModalOpen(false)}>
+                <IoIosCloseCircle color='black' size={25} />
+              </button>
+            </div>
+            <div className='flex flex-row p-2 items-center gap-5 mt-3'>
+              <img src={product.image} alt="" className='w-[100px] h-[100px]' />
+              <span className='text-lg font-semibold'>{product.title}</span>
+            </div>
+            <div className='w-full flex justify-center my-5'>
+              <Link to={"/checkout"}>
+                <button className='bg-amber-500 w-full text-lg px-3 py-2 rounded cursor-pointer hover:scale-[105%] hover:bg-amber-300'>Go to Shopping Cart</button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      }
     </div>
   )
 }

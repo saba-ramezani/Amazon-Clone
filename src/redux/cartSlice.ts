@@ -18,11 +18,12 @@ export const cartSlice = createSlice({
     addToCart: (state, action: PayloadAction<CartProduct>) => {
       const addProductExists = state.products.find((product) => product.id === action.payload.id)
       if (addProductExists) {
-        addProductExists.quantity += action.payload.quantity
-        state.productsNumber += action.payload.quantity;
+        // state.productsNumber -= addProductExists.quantity;
+        addProductExists.quantity = action.payload.quantity;
+        // state.productsNumber += action.payload.quantity;
       } else {
         state.products.push(action.payload);
-        state.productsNumber += action.payload.quantity;
+        state.productsNumber += 1;
       }
     },
     removeFromCart: (state, action: PayloadAction<number>) => {

@@ -1,12 +1,15 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "../../redux/store";
 import type { CartProduct } from "../../types/Types";
 import { GB_CURRENCY } from "../../utils/constants";
 import ProductDetails from "../ProductPage/ProductDetails";
 import { Link } from "react-router-dom";
+import { addToCart, removeFromCart } from "../../redux/cartSlice";
+import classNames from "classnames";
 
 const Checkout = () => {
 
+  const dispatch = useDispatch()
   const products = useSelector((state: RootState) => state.cart.products);
   const numberOfItems = useSelector((state: RootState) => state.cart.productsNumber);
   const subtotal = useSelector((state: RootState) => state.cart.products.reduce((subtotal, product: CartProduct) => subtotal + (product.price * product.quantity) , 0));
@@ -33,11 +36,30 @@ const Checkout = () => {
                       <ProductDetails product={product} ratings={false} />
                     </Link>
                     <div className="mt-10 flex flex-col gap-2">
-                      <button className="bg-red-700 text-white px-2 rounded-lg py-1 text-sm w-[150px] cursor-pointer">Remove from Cart</button>
+                      <button 
+                      onClick={() => dispatch(removeFromCart(product.id))}
+                      className="bg-red-700 text-white px-2 rounded-lg py-1 text-sm w-[150px] cursor-pointer">Remove from Cart</button>
                       <div className="w-[150px] border border-gray-400 rounded-lg  grid grid-cols-3">
-                        <button className="bg-amber-500 col-span-1 rounded-l-lg cursor-pointer">-</button>
+                        <button 
+                        onClick={() => {
+                          if (product.quantity > 1) {
+                            dispatch(addToCart({ ...product, quantity: product.quantity - 1 }));
+                          }
+                        }}
+                        className={classNames("col-span-1 rounded-l-lg font-bold",
+                          product.quantity <= 1 ? "bg-gray-300" : "bg-amber-500 cursor-pointer"
+                        )}
+                        >-</button>
                         <span className="col-span-1 flex justify-center">{product.quantity}</span>
-                        <button className="bg-amber-500 col-span-1 rounded-r-lg cursor-pointer">+</button>
+                        <button 
+                        onClick={() => {
+                          if (product.quantity < 5) {
+                            dispatch(addToCart({ ...product, quantity: product.quantity + 1 }));
+                          }
+                        }}
+                        className={classNames("col-span-1 rounded-r-lg", 
+                          product.quantity >= 5 ? "bg-gray-300" : "bg-amber-500 cursor-pointer"
+                        )}>+</button>
                       </div>
                     </div>
                   </div>

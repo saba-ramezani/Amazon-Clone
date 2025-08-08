@@ -24,9 +24,9 @@ const Checkout = () => {
 
   return (
     <div className="bg-background h-screen">
-      <div className="min-w-[1000px] max-w-[1500px] m-auto pt-8">
+      <div className="min-w-screen max-w-[1500px] m-auto pt-8">
         <div className="grid grid-cols-8 gap-10">
-          <div className="col-span-6 bg-white p-8 rounded-2xl">
+          <div className="lg:col-span-6 col-span-8 bg-white p-8 rounded-2xl">
             <span className="text-3xl font-semibold text-black">Shopping Cart</span>
             <div className="mt-[50px] flex flex-col divide-y bg-gray-100 rounded-2xl p-2">
               {products.map((product: CartProduct) => (
@@ -85,7 +85,7 @@ const Checkout = () => {
               <span className="text-xl font-bold">{GB_CURRENCY.format(subtotal)}</span>
             </div>
           </div>
-          <div className="col-span-2 bg-white p-6 h-fit rounded-2xl">
+          <div className="lg:col-span-2 col-span-8 bg-white p-6 h-fit rounded-2xl">
             <span className="text-md text-green-500">Your order qualifies for <span className="text-lg font-semibold">FREE DELIVERY</span></span>
             <button className="bg-green-800 text-white rounded px-3 py-1 cursor-pointer mt-2 text-sm hover:scale-[103%]">Delivery Details</button>
             <div className="flex mt-[20px]">

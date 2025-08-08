@@ -34,15 +34,15 @@ const SearchResults = () => {
   }, [searchParams])
 
   return (
-    <div className="min-w-[1200px] max-w-[1300px] m-auto">
+    <div className=" max-w-[1300px] m-auto">
       {products && products.map((product: Product, key: number) => {
         return (
           <Link key={key} to={`/product/${product.id}`}>
-            <div className="h-[250px] grid grid-cols-12 rounded my-1">
-              <div className="col-span-2 p-4 bg-gray-200">
+            <div className="lg:min-h-[250px] h-fit grid grid-cols-12 rounded my-1">
+              <div className="sm:col-span-2 col-span-12 p-4 bg-gray-200">
                 <img className="m-auto" src={product.image_small} alt="" />
               </div>
-              <div className="col-span-10 bg-gray-50 border border-gray-100 hover:bg-gray-100">
+              <div className="sm:col-span-10 col-span-12 bg-gray-50 border border-gray-100 hover:bg-gray-100">
                 <div className="font-medium text-black p-2">
                   <ProductDetails product={product} ratings={true} />
                   <div className="text-xl xl:text-2xl pt-3">{GB_CURRENCY.format(product.price)}</div>
